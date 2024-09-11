@@ -4,42 +4,29 @@
 
 <%= search_form_for @q, url: tasks_path, method: :get do |f| %>
   <%= f.label :title_or_description_cont, "キーワード" %>
-  <div class="form-group">
-    <%= f.text_field :title_or_description_cont, class: 'form-control' %>
-  </div>
+    <%= f.search_field :title_or_description_cont, class: 'form-control font-awesome' %>
 
   <label for="start_date">期間</label>
-  <div class="form-group">
     <%= f.date_field :deadline_gteq, class: 'form-control' %>
     <label for="end_date"> ~ </label>
     <%= f.date_field :deadline_lteq, class: 'form-control' %>
-  </div>
 
 
-  <label>ステータス</label>
-  <div class="form-group-button">
-    <div class="form-button">
-      <%= radio_button_tag :status, '', checked: params[:status].blank?, id: 'status_none' %>
+  <label for="status">ステータス</label>
+      <%= radio_button_tag :status_eq, '', checked: @status.blank?, id: 'status_none' %>
       <%= label_tag :status_none, '指定なし' %>
-    </div>
 
-    <div class="form-button">
-      <%= radio_button_tag :status, 'todo', params[:status] == 'todo', id: 'status_todo' %>
+      <%= radio_button_tag :status_eq, 'todo', params[:status] == 'todo', id: 'status_todo' %>
       <%= label_tag :status_todo, 'todo' %>
-    </div>
 
-    <div class="form-button">
-      <%= radio_button_tag :status, 'doing', params[:status] == 'doing', id: 'status_doing' %>
+      <%= radio_button_tag :status_eq, 'doing', params[:status] == 'doing', id: 'status_doing' %>
       <%= label_tag :status_doing, 'doing' %>
-    </div>
 
-    <div class="form-button">
-      <%= radio_button_tag :status, 'done', params[:status] == 'done', id: 'status_done' %>
+
+      <%= radio_button_tag :status_eq, 'done', params[:status] == 'done', id: 'status_done' %>
       <%= label_tag :status_done, 'done' %>
-    </div>
-    <%= f.submit "Search", class: 'btn btn-primary' %>
-  </div>
 
+    <%= f.submit "Search", class: 'btn btn-primary' %>
   
 <% end %>
 
