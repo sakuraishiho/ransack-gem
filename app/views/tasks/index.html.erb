@@ -2,13 +2,53 @@
 
 <h1>Tasks</h1>
 
+<%= search_form_for @q, url: tasks_path, method: :get do |f| %>
+  <%= f.label :title_or_description_cont, "キーワード" %>
+  <div class="form-group">
+    <%= f.text_field :title_or_description_cont, class: 'form-control' %>
+  </div>
+
+  <label for="start_date">期間</label>
+  <div class="form-group">
+    <input type="date" id="start_date" name="start_date" class="form-control" value="<%= params[:start_date] %>">
+    <label for="end_date">~</label>
+    <input type="date" id="end_date" name="end_date" class="form-control" value="<%= params[:end_date] %>">
+  </div>
+
+  <label>ステータス</label>
+  <div class="form-group-button">
+    <div class="form-button">
+      <%= radio_button_tag :status, '', checked: params[:status].blank?, id: 'status_none' %>
+      <%= label_tag :status_none, '指定なし' %>
+    </div>
+  
+    <div class="form-button">
+      <%= radio_button_tag :status, 'todo', params[:status] == 'todo', id: 'status_todo' %>
+      <%= label_tag :status_todo, 'todo' %>
+    </div>
+  
+    <div class="form-button">
+      <%= radio_button_tag :status, 'doing', params[:status] == 'doing', id: 'status_doing' %>
+      <%= label_tag :status_doing, 'doing' %>
+    </div>
+  
+    <div class="form-button">
+      <%= radio_button_tag :status, 'done', params[:status] == 'done', id: 'status_done' %>
+      <%= label_tag :status_done, 'done' %>
+    </div>
+    <%= f.submit "Search", class: 'btn btn-primary' %>
+  </div> 
+
+  
+<% end %>
+
 <table>
   <thead>
     <tr>
       <th>Title</th>
       <th>Description</th>
       <th>Status</th>
-      <th>Deadline</th>
+      <th><%= sort_link(@q, :deadline, 'Deadline', default_order: :desc) %></th>
       <th colspan="3"></th>
     </tr>
   </thead>

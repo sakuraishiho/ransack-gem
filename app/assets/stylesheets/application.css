@@ -13,3 +13,25 @@
  *= require_tree .
  *= require_self
  */
+ .form-group {
+    display: flex;
+    align-items: center; /* 垂直方向の中央揃え */
+  }
+
+  .form-group-button {
+    display: flex;
+    align-items: center; /* 垂直方向に中央揃え */
+    gap: 10px; /* ボタン間のスペース */
+  }
+  
+  /* 各フォームボタンの設定 */
+  .form-button {
+    display: flex;
+    align-items: center; /* 垂直方向に中央揃え */
+  }
+  
+  /* ボタンとラベル間のスペースを調整 */
+  .form-button input[type="radio"] {
+    margin-right: 5px; /* ラジオボタンとラベル間のスペース */
+  }
+  
