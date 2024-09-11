@@ -11,14 +11,12 @@ class TasksController < ApplicationController
     end_date = params[:q][:deadline_lteq].present? ? Date.parse(params[:q][:deadline_lteq]) : nil
 
     # 検索結果を取得し、期間でフィルタリング
-    @tasks = @q.result(distinct: true)
+    @tasks = @q.result(distinct: true).within_date_range(start_date, end_date)
 
     # ステータスによる検索
-    status_filter = params[:q].try(:[], :status_eq)
-    if status_filter.present? && status_filter != ''
-      @tasks = @tasks.where(status: status_filter)
-    end
-    
+    status_filter = params[:status]
+    @tasks = @tasks.where(status: status_filter) if status_filter.present?
+
     # 作成日時で昇順にソート
     @tasks = @tasks.order(created_at: :asc)
   end
