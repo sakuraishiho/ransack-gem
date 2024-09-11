@@ -10,34 +10,35 @@
 
   <label for="start_date">期間</label>
   <div class="form-group">
-    <input type="date" id="start_date" name="start_date" class="form-control" value="<%= params[:start_date] %>">
-    <label for="end_date">~</label>
-    <input type="date" id="end_date" name="end_date" class="form-control" value="<%= params[:end_date] %>">
+    <%= f.date_field :deadline_gteq, class: 'form-control' %>
+    <label for="end_date"> ~ </label>
+    <%= f.date_field :deadline_lteq, class: 'form-control' %>
   </div>
+
 
   <label>ステータス</label>
   <div class="form-group-button">
     <div class="form-button">
-      <%= radio_button_tag :status, '', checked: params[:status].blank?, id: 'status_none' %>
-      <%= label_tag :status_none, '指定なし' %>
+      <%= f.radio_button :status_eq, '', checked: params[:q].try(:[], :status_eq).blank?, id: 'status_none' %>
+      <%= f.label :status_none, '指定なし' %>
     </div>
   
     <div class="form-button">
-      <%= radio_button_tag :status, 'todo', params[:status] == 'todo', id: 'status_todo' %>
-      <%= label_tag :status_todo, 'todo' %>
+      <%= f.radio_button :status_eq, 'todo', checked: params[:q].try(:[], :status_eq) == 'todo', id: 'status_todo' %>
+      <%= f.label :status_todo, 'todo' %>
     </div>
   
     <div class="form-button">
-      <%= radio_button_tag :status, 'doing', params[:status] == 'doing', id: 'status_doing' %>
-      <%= label_tag :status_doing, 'doing' %>
+      <%= f.radio_button :status_eq, 'doing', checked: params[:q].try(:[], :status_eq) == 'doing', id: 'status_doing' %>
+      <%= f.label :status_doing, 'doing' %>
     </div>
   
     <div class="form-button">
-      <%= radio_button_tag :status, 'done', params[:status] == 'done', id: 'status_done' %>
-      <%= label_tag :status_done, 'done' %>
+      <%= f.radio_button :status_eq, 'done', checked: params[:q].try(:[], :status_eq) == 'done', id: 'status_done' %>
+      <%= f.label :status_done, 'done' %>
     </div>
     <%= f.submit "Search", class: 'btn btn-primary' %>
-  </div> 
+  </div>
 
   
 <% end %>

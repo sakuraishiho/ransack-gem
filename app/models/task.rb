@@ -15,7 +15,7 @@ class Task < ApplicationRecord
   end
   
   def self.ransackable_associations(auth_object = nil)
-    ["task"]  # 'project' という関連モデルを検索対象に含める
+    ["task"]  # 'task' という関連モデルを検索対象に含める
   end
 
   scope :within_date_range, ->(start_date, end_date) {

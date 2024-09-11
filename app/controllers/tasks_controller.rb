@@ -7,15 +7,17 @@ class TasksController < ApplicationController
     @q = Task.ransack(params[:q])
     
     # 期間検索のパラメータを取得
-    start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : nil
-    end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : nil
-    
+    start_date = params[:q][:deadline_gteq].present? ? Date.parse(params[:q][:deadline_gteq]) : nil
+    end_date = params[:q][:deadline_lteq].present? ? Date.parse(params[:q][:deadline_lteq]) : nil
+
     # 検索結果を取得し、期間でフィルタリング
-    @tasks = @q.result(distinct: true).within_date_range(start_date, end_date)
+    @tasks = @q.result(distinct: true)
 
     # ステータスによる検索
-    status_filter = params[:status]
-    @tasks = @tasks.where(status: status_filter) if status_filter.present?
+    status_filter = params[:q].try(:[], :status_eq)
+    if status_filter.present? && status_filter != ''
+      @tasks = @tasks.where(status: status_filter)
+    end
     
     # 作成日時で昇順にソート
     @tasks = @tasks.order(created_at: :asc)
