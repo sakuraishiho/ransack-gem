@@ -13,18 +13,17 @@
 
 
   <label for="status">ステータス</label>
-      <%= radio_button_tag :status_eq, '', checked: @status.blank?, id: 'status_none' %>
-      <%= label_tag :status_none, '指定なし' %>
+    <%= radio_button_tag 'q[status_eq]', '', @status.blank?, id: 'q_status_eq_' %>
+    <%= label_tag 'q_status_eq_', '指定なし' %>
 
-      <%= radio_button_tag :status_eq, 'todo', params[:status] == 'todo', id: 'status_todo' %>
-      <%= label_tag :status_todo, 'todo' %>
+    <%= radio_button_tag 'q[status_eq]', '0', params.dig(:q, :status_eq) == '0', id: 'q_status_eq_0' %>
+    <%= label_tag 'q_status_eq_0', 'todo' %>
 
-      <%= radio_button_tag :status_eq, 'doing', params[:status] == 'doing', id: 'status_doing' %>
-      <%= label_tag :status_doing, 'doing' %>
+    <%= radio_button_tag 'q[status_eq]', '1', params.dig(:q, :status_eq) == '1', id: 'q_status_eq_1' %>
+    <%= label_tag 'q_status_eq_1', 'doing' %>
 
-
-      <%= radio_button_tag :status_eq, 'done', params[:status] == 'done', id: 'status_done' %>
-      <%= label_tag :status_done, 'done' %>
+    <%= radio_button_tag 'q[status_eq]', '2', params.dig(:q, :status_eq) == '2', id: 'q_status_eq_2' %>
+    <%= label_tag 'q_status_eq_2', 'done' %>
 
     <%= f.submit "Search", class: 'btn btn-primary' %>
   
